@@ -4,7 +4,7 @@ import styles from '../../styles/Home.module.css'
 import router from 'next/router'
 import db from '../../utils/db';
 
-const Posts = (props) => {
+const Tabela = (props) => {
     const { wyniksData } = props;
 
     console.log(wyniksData[0].content.content)
@@ -66,5 +66,5 @@ export const getStaticProps = async () => {
     }
 }
 
-export default Posts;
+export default Tabela;
 
