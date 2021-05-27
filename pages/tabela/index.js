@@ -53,7 +53,7 @@ const Tabela = (props) => {
     );
 };
 
-export const getStaticProps = async () => {
+export const getInitialProps  = async () => {
     const wyniks = await db.collection('wyniks').orderBy('created', 'asc').get();
     const wyniksData = wyniks.docs.map(wynik => ({
         id: wynik.id,
