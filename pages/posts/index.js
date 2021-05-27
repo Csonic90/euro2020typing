@@ -20,7 +20,7 @@ const Posts = (props) => {
 };
 
 export const getStaticProps = async () => {
-  const entries = await db.collection('entries').orderBy('created', 'desc').get();
+  const entries = await db.collection('entries').orderBy('created', 'aesc').get();
   const entriesData = entries.docs.map(entry => ({
     id: entry.id,
     ...entry.data()

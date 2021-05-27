@@ -16,6 +16,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+      <h2 className={styles.title}>
+         {router.router &&  router.router.query.name}
+        </h2>
         <h1 className={styles.title}>
           TU POWSTANIE STRONA DO EURO 2020
         </h1>
@@ -23,9 +26,7 @@ export default function Home() {
           <a className="btn btn-outline-info m-5">PODAJ SWOJE WYNIKI</a>
             
           </Link>
-          <h2 className={styles.title}>
-         {router.router &&  router.router.query.name}
-        </h2>
+         
       </main>
 
       <footer className={styles.footer}>
