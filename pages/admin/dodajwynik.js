@@ -4,10 +4,13 @@ import axios from 'axios';
 import Link from 'next/link'
 import db from '../../utils/db';
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import styles from '../../styles/Home.module.css'
 
 const DodajWynik = (props) => {
     
+    const router = useRouter()
+
     const { meczesData } = props;
     const [imie, setImie] = useState('')
     const [content, setContent] = useState(meczesData)
@@ -26,6 +29,7 @@ const DodajWynik = (props) => {
     const onSubmit = async () => {
         await axios.post('/api/wynik',{imie, content:{content} ,slug: dashify(imie)
          });
+         
     }
   
     console.log(content)
