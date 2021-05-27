@@ -19,7 +19,7 @@ const Tabela = (props) => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>MECZE</th>
+                            <th>MECZ</th>
                             {wyniksData.map((wynik, id) =>
                                 <th key={id} scope="col">{wynik.imie}</th>
                             )}
@@ -53,7 +53,7 @@ const Tabela = (props) => {
     );
 };
 
-export const getInitialProps  = async () => {
+export const getStaticProps = async () => {
     const wyniks = await db.collection('wyniks').orderBy('created', 'asc').get();
     const wyniksData = wyniks.docs.map(wynik => ({
         id: wynik.id,
@@ -61,6 +61,7 @@ export const getInitialProps  = async () => {
     }));
     return {
         props: { wyniksData },
+        revalidate: 20,
     }
 }
 
