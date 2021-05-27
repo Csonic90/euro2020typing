@@ -45,7 +45,7 @@ export const getStaticProps = async (context) => {
   if (entry.length) {
     return {
       props: {
-        entry: entry[0]
+        entry: entry
       }
     }
   } else {
