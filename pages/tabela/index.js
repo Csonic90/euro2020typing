@@ -1,7 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../../styles/Home.module.css'
-import router from 'next/router'
 import db from '../../utils/db';
 
 const Tabela = (props) => {
@@ -21,7 +19,7 @@ const Tabela = (props) => {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th>MECZ</th>
+                            <th>MECZE</th>
                             {wyniksData.map((wynik, id) =>
                                 <th key={id} scope="col">{wynik.imie}</th>
                             )}
