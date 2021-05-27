@@ -29,11 +29,11 @@ const DodajWynik = (props) => {
     const onSubmit = async () => {
         await axios.post('/api/wynik',{imie, content:{content} ,slug: dashify(imie)
          });
-         
+         router.push({
+             pathname:'/',
+             query: {name: 'Twoje wyniki zostały dodane'} 
+            })
     }
-  
-    console.log(content)
-    console.log(imie)
     return (
         
         
@@ -86,7 +86,7 @@ const DodajWynik = (props) => {
                 ))}
 
             </div>
-            <button className='btn btn-primary' onClick={onSubmit}>Dodaj Wyniki</button>
+            <button  className='btn btn-primary' onClick={onSubmit}>Dodaj Wyniki</button>
 
         </div>
         </div>

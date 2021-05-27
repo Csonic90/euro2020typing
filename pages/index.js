@@ -1,9 +1,12 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import router from 'next/router'
+
+
 
 export default function Home() {
-  return (
+  return (  
     <div className={styles.container}>
       <Head>
         <title>EURO 2020</title>
@@ -20,7 +23,9 @@ export default function Home() {
           <a className="btn btn-outline-info m-5">PODAJ SWOJE WYNIKI</a>
             
           </Link>
-        
+          <h2 className={styles.title}>
+         {router.router &&  router.router.query.name}
+        </h2>
       </main>
 
       <footer className={styles.footer}>
