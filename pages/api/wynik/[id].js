@@ -2,7 +2,7 @@ import db from '../../../utils/db';
 
 export default async (req, res) => {
   const { id } = req.query;
-
+  console.log(req.query)
   try {
     if (req.method === 'PUT') {
       await db.collection('wyniks').doc(id).update({

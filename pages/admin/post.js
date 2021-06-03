@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import dashify from 'dashify';
 import axios from 'axios';
+import 'firebase';
+import 'firebaseui';
 
 const Post = () => {
   const [content, setContent] = useState({
@@ -13,7 +15,7 @@ const Post = () => {
   }
   const onSubmit = async () => {
     const { title, body } = content;
-    await axios.post('/api/entry', { title, slug: dashify(title), body });
+    await axios.post('/api/demo', { email: title, slug: dashify(title), body });
   }
   return (
     <div>
