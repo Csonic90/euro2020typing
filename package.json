@@ -24,6 +24,5 @@
     "@types/node": "^15.3.0",
     "@types/react": "^17.0.5",
     "typescript": "^4.2.4"
-  },
-  "cacheDirectories": ["client/webpack/node_modules", "server/webpack/node_modules"]
+  }
 }
