@@ -7,7 +7,7 @@ export default async (req, res) => {
 
   try {
     const users = await db.collection('users').get();
-    const mecze = await db.collection('meczes').get();
+    const mecze = await db.collection('meczes').orderBy('created','asc').get();
     const meczeData = mecze.docs.map(mecz => ({
       id: mecz.id,
       ...mecz.data()}));
@@ -18,13 +18,17 @@ export default async (req, res) => {
         //id_auth: "M4YPiAkkqwfbSz3tILO0enGlD972",//Janusz janusz@janusz.pl 12341234  
         //id_auth: "O48tg1iHZtPy1ioGsPa7Tu9NJWG3",//Patryk  patryk@patryk.pl 12341234 
         id_auth: "DCjm6ozWFoONpbk6yCHoAhkSPCf2", //Zbyszek zbyszek@zb.pl  12341234
-        name: 'Patryk',
+        name: 'Zbyszek',
         created: new Date().toISOString(),
     });
     const userid = id
-    
+    let a = 0
     for(let i=0 ; i<meczeData.length; i++) {
-        const { id } = await db.collection('wyniks').add({    
+      console.log(i);
+      console.log(a);
+      
+        const { id } = db.collection('wyniks').add({   
+          
             //id_user: 'Xdq974O90FfeQMv7q2Rdy7TnRA03',//Sylwek
             //id_user: 'M4YPiAkkqwfbSz3tILO0enGlD972', //Janusz
             //id_user: 'O48tg1iHZtPy1ioGsPa7Tu9NJWG3', //Patryk
@@ -34,10 +38,13 @@ export default async (req, res) => {
             wynik_1: '',
             wynik_2: '',
             created: new Date().toISOString(),
-        });
-        
+            ordertable : a
+        }
+        );
+        a++
     }
-    res.status(200);
+    res.status(200).json('dodano');
+
    console.log('dodano usera')
     
 

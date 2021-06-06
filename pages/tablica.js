@@ -17,7 +17,9 @@ import styles from '../styles/Home.module.css'
 
 const Tablica = ({ userData, wyniki, mecze }) => {
   const AuthUser = useAuthUser()
-  console.log(wyniki)
+
+  const todaysDate = new Date;
+
   return (
     <div className="container">
         <Head>
@@ -39,22 +41,22 @@ const Tablica = ({ userData, wyniki, mecze }) => {
             )}
             </thead>
             <tbody>
-            {userData.map((user,id) => 
-              <tr>
-                {user.name}
-              
-                {wyniki.map((wynik,id) => 
-                <td name={wynik.mecz_id} data-id={wynik.id_user} >
-                  {wynik.wynik_1 + " - "+ wynik.wynik_2}
-                </td>
-                )}
-              </tr>
+            
+            {userData.map((user,ids) => 
+            <tr>
+
+              <td>{user.name}</td>
+              {mecze.map( (mecz , id) => 
+              <>{wyniki
+              .filter(wynik => wynik.id_user == user.id_auth && wynik.mecz_id == mecz.id) 
+              .map(wynik => 
+                  <td>{(Date.parse(mecz.blokada) > todaysDate ) ? 'ukryty'  : (wynik.wynik_1 + '-'+ wynik.wynik_2) }</td>
+                
+                  
+                  )}</>)}
+            </tr>
               )}
-     
-
-       
-          
-
+           
             </tbody>
           </table>
         </div>
@@ -71,9 +73,9 @@ export const getServerSideProps = withAuthUserTokenSSR({
   // Optionally, get other props.
   const token = await AuthUser.getIdToken()
   const endpoint = getAbsoluteURL('/api/example', req)
-  const users = await db.collection('users').get();
+  const users = await db.collection('users').orderBy('created', 'asc').get();
 
-  const userwynik = await db.collection('wyniks').get();
+  const userwynik = await db.collection('wyniks').orderBy('created', 'asc').get();
   const meczes = await db.collection('meczes').orderBy('created', 'asc').get();
 
 

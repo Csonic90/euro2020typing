@@ -19,17 +19,10 @@ import { useRouter } from 'next/router'
 
 const Twojetrafy = ({ userData, wyniki, mecze }) => {
   const AuthUser = useAuthUser()
-  const [content, setContent] = useState(wyniki)
   const router = useRouter()
 
-  const wynikia = mecze.map((mecz, id) => ({
-    id: mecz.id,
-    mecza: mecz.slug,
-    wynik: wyniki.map(a => ({
-      wynik1: a.wynik_1,
-      wynik2: a.wynik_2
-    })),
-  }));
+  const [content, setContent] = useState(wyniki.sort((a, b) => a.ordertable - b.ordertable))
+ 
 
   const onChange = (e) => {
     if (["wynik_1", "wynik_2"].includes(e.target.name)) {
@@ -56,7 +49,6 @@ const Twojetrafy = ({ userData, wyniki, mecze }) => {
       setContent(temp)
     router.push('/twojetrafy')
   }
-  console.log(content)
   const todaysDate = new Date()
   return (<>
     <Head>
@@ -88,33 +80,35 @@ const Twojetrafy = ({ userData, wyniki, mecze }) => {
                 value={content[id] && content[id].wynik_1}
                 className="wynik col form-control"
                 onChange={onChange}
-                disabled={content[id] && content[id].status == true}
+                disabled={content[id] && content[id].status == true || Date.parse(mecz.blokada) < todaysDate }
               />
               <input
                 id="fname"
                 name='wynik_2'
                 data-id={id}
+                data-aaaa={mecz.id}
                 type="number"
                 value={content[id] && content[id].wynik_2}
                 className="wynik col form-control"
                 onChange={onChange}
-                disabled={content[id] && content[id].status == true}
+                disabled={content[id] && content[id].status == true || Date.parse(mecz.blokada) < todaysDate }
               />
               <label className="col" htmlFor="fname">{mecz.druzyna2}</label>
               <button
                 data-id={id}
                 name="status"
                 id={content[id] && content[id].id}
-                className={(content[id] && content[id].status == true) ? "btn btn-outline-danger col" : "btn btn-outline-success col"}
+                data-aaaa={content[id].mecz_id}
+                className={(content[id] && content[id].status == true || Date.parse(mecz.blokada) < todaysDate) ? "btn btn-outline-danger col" : "btn btn-outline-success col"}
                 onClick={onSubmit}
-                disabled={content[id] && content[id].status == true}>
+                disabled={content[id] && content[id].status == true || Date.parse(mecz.blokada) < todaysDate}>
                 <Countdown
                   date={mecze[id] && mecze[id].blokada }
                   intervalDelay={1000}
                   precision={0}
                   renderer={props => <div>{props.days}d {props.hours}g {props.minutes}m {props.seconds}s</div>}
                 />
-                {(content[id] && content[id].status == true)? 'Zablokowany' : 'Zatwierdz'}
+                {(content[id] && content[id].status == true || Date.parse(mecz.blokada) < todaysDate)? 'Zablokowany' : 'Zatwierdz'}
               </button>
 
             </div>
