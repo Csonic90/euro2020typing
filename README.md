@@ -7,7 +7,11 @@ Init app server:
 ```bash
 npm install
 ```
-First,add and config env.local file in 
+First,add and config env.local file in ./ 
+```
+
+```
+
 First, run the development server:
 
 ```bash
